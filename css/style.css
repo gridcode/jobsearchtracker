@@ -1,0 +1,12 @@
+h1{
+  text-align: center;
+}
+.wrapper{
+  max-width: 1200px;
+  margin: auto;
+  padding: 0 16px
+}
+.form-container{
+  width: 400px;
+  margin: 20px auto;
+}
