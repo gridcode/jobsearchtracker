@@ -1,15 +1,18 @@
-import Head from "next/head";
 import Link from "next/link";
 import { Button, Card } from "semantic-ui-react";
-
+import dbConnect from 'utils/dbConnect'
+import JobApp from 'models/jobapp'
 export async function getServerSideProps(context) {
-  const res = await fetch(`${process.env.BASEURL}/api/applications`);
-  const { data } = await res.json();
-  return {
-    props: {
-      jobApps: data,
-    }, // will be passed to the page component as props
-  };
+  await dbConnect()
+  const res = await JobApp.find({})
+  const jobApps = res.map(doc=>{
+    const job = doc.toObject()
+    job._id = job._id.toString()
+    return job
+  })
+  return {props : {
+    jobApps
+  }}
 }
 
 export default function Home({ jobApps }) {
